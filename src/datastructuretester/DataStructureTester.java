@@ -20,10 +20,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import static sort.ComplexSort.mergeSort;
 import static sort.SimpleSorts.bubbleSort;
 
 /**
  * A JavaFX 8 program to help experiment with data structures and algorithms.
+ *
+ * For homework add a selection sort.
  *
  * @author John Phillips
  */
@@ -130,7 +133,7 @@ public class DataStructureTester extends Application {
 //            }
             StringBuilder sb = new StringBuilder();
             String newLine = "\n";
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 100000; i++) {
                 sb.append(i).append(newLine);
             }
             taData.setText(sb.toString());
@@ -182,6 +185,17 @@ public class DataStructureTester extends Application {
         sortMenu.getItems().add(miBubbleSortDsc);
 
         MenuItem miMergeSortAsc = new MenuItem("Merge Sort Ascending");
+        miMergeSortAsc.setOnAction(e -> {
+            MyTimer.startMicroTime();
+            int[] nums = text2IntArray(taData.getText());
+            taStatus.setText("Converting text to array took " + MyTimer.stopMicroTime() + "us");
+            MyTimer.startMicroTime();
+            mergeSort(nums, "A");
+            taStatus.appendText("\nSort finished in " + MyTimer.stopMicroTime() + "us");
+            MyTimer.startMicroTime();
+            taData.setText(intArray2Text(nums));
+            taStatus.appendText("\nArray to text finished in " + MyTimer.stopMicroTime() + "us");
+        });
         sortMenu.getItems().add(miMergeSortAsc);
 
         MenuItem miMergeSortDsc = new MenuItem("Merge Sort Descending");
