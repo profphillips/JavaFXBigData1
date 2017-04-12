@@ -1,7 +1,7 @@
 package sort;
 
 /**
- *
+ * Complex sort.
  * @author 55jphillip
  */
 public class ComplexSort {
